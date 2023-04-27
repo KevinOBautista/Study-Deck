@@ -1,29 +1,29 @@
 import React, { useEffect, useState } from "react";
-import { Link, useHistory } from "react-router-dom/cjs/react-router-dom.min";
-import { createDeck,listDecks } from "../../utils/api";
-import Nav from "../Nav";
+import { Link,useParams,useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import { readDeck, updateDeck } from "../../utils/api";
 
-function DeckForm(){
-    const initialdeckData = {
-        name:"",
-        description:"",
-    }
-    const [deckData, setDeckData] = useState(initialdeckData)
-    const [decks, setDecks] = useState([])
+function EditDeckForm(){
+    const [deck, setDeck] = useState({})
+    const {deckId} = useParams()
+    const [deckData, setDeckData] = useState({})
+    const [tempDeck,setTempDeck] = useState()
     const history = useHistory()
+    useEffect(()=>{
+        readDeck(deckId)
+        .then(data => {
+            setDeck(data);
+            setTempDeck(data);
+            setDeckData({name:data.name,description:data.description})
+        })
+    },[deckId])
 
-    useEffect( () => {
-        listDecks()
-        .then(data => setDecks(data));
-    }, [])
 
     async function submitHandler(event){
         event.preventDefault()
-        console.log("Form Info:",deckData.name,deckData.description)
-        await createDeck(deckData)
-        setDeckData({...initialdeckData})
-        console.log("current Decks:",decks)
-        history.push(`/decks/${decks.length+1}`)
+        console.log(deckData)
+        console.log("temp Deck:",tempDeck)
+        await updateDeck(tempDeck)
+        history.push(`/decks/${deckId}`)
     }
 
     function handleChange({target}){
@@ -31,12 +31,14 @@ function DeckForm(){
             ...deckData,
             [target.name]: target.value
         })
+        setTempDeck({
+            ...tempDeck,
+            [target.name]:target.value
+        })
     }
 
     return(
         <div className="createDeck">
-            <Nav/>
-            <h1>Create Deck</h1>
             <form onSubmit={submitHandler}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
@@ -47,11 +49,11 @@ function DeckForm(){
                     <textarea className="form-control" id="description" name="description" onChange={handleChange} value={deckData.description} placeholder="Brief description of the deck" rows={4}
                      required></textarea>
                 </div>
-                <Link to="/" className="btn btn-secondary mr-2">Cancel</Link>
+                <Link to={`/decks/${deck.id}`} className="btn btn-secondary mr-2">Cancel</Link>
                 <button type="submit" className="btn btn-primary">Submit</button>
             </form>
         </div>
     )
 }
 
-export default DeckForm
+export default EditDeckForm

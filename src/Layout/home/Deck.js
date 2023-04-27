@@ -3,7 +3,7 @@ import {BsBookHalf, BsEyeFill, BsTrash3Fill} from "react-icons/bs"
 import { Link,Switch,Route,useHistory } from "react-router-dom";
 import Study from "../study/Study";
 import { deleteDeck,listDecks } from "../../utils/api";
-import DeckView from "../deckEdit/DeckView";
+import DeckView from "../view/DeckView";
 
 function Deck({deck,setDecks}){
     const history = useHistory()

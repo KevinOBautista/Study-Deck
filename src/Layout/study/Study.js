@@ -1,12 +1,13 @@
 import React from "react";
-import StudyNav from "./StudyNav";
 import { useEffect, useState } from "react";
-import { useRouteMatch,useHistory,Link } from "react-router-dom";
+import { useHistory,Link } from "react-router-dom";
 import {readDeck} from "../../utils/api"
 import Card from "./Card";
 import { BsPlusCircleFill } from "react-icons/bs";
+import Nav from "../Nav";
+import { useParams } from "react-router-dom/cjs/react-router-dom.min";
 function Study(){
-    const {url, params:{deckId}} = useRouteMatch()
+    const {deckId} = useParams()
     const [deck, setDeck] = useState({})
     const [cards, setCards] = useState([])
     const [card, setCard] = useState({})
@@ -14,14 +15,14 @@ function Study(){
     const [cardNumber, setCardNumber] = useState(0)
     const history = useHistory()
     function flipHandler(event){
-        if(face == "front"){
+        if(face === "front"){
             setFace("back")
         }else{
             setFace("front")
         }
     }
     function nextHandler(event){
-        if(cardNumber == cards.length - 1 ){
+        if(cardNumber === cards.length - 1 ){
             const result = window.confirm("Restart cards?\n \n Click 'cancel' to return to the home page");
             if(result){
                 setCardNumber(0)
@@ -40,11 +41,10 @@ function Study(){
     useEffect(()=>{
         readDeck(deckId)
         .then(data => {setDeck(data); setCards(data.cards); setCard(data.cards[0])})
-    },[])
+    },[deckId])
     return(
         <>
-        {console.log("Current Card",card)}
-        <StudyNav deck={deck}/>
+        <Nav deck={deck}/>
         <h1> Study: {deck.name}</h1>
         {cards.length > 2 && <Card cards={cards} card={card} flipHandler={flipHandler} face={face} nextHandler={nextHandler} cardNumber={cardNumber}/>}
         {cards.length <= 2 && 
