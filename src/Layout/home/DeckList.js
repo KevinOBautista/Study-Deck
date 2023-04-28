@@ -4,7 +4,6 @@ import { useState,useEffect } from "react";
 import {listDecks} from "../../utils/api"
 import { BsPlusCircleFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { Route, Switch } from "react-router-dom/cjs/react-router-dom.min";
 
 
 function DeckList(){

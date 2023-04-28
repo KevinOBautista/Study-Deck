@@ -6,7 +6,7 @@ function EditDeckForm(){
     const [deck, setDeck] = useState({})
     const {deckId} = useParams()
     const [deckData, setDeckData] = useState({})
-    const [tempDeck,setTempDeck] = useState()
+    const [tempDeck,setTempDeck] = useState({})
     const history = useHistory()
     useEffect(()=>{
         readDeck(deckId)

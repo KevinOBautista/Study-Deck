@@ -22,7 +22,6 @@ function DeckForm(){
         console.log("Form Info:",deckData.name,deckData.description)
         await createDeck(deckData)
         setDeckData({...initialdeckData})
-        console.log("current Decks:",decks)
         history.push(`/decks/${decks.length+1}`)
     }
 
