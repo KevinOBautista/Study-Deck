@@ -1,6 +1,6 @@
 # Study Deck / Flashcard-o-matic
 
-Study Deck is a dynamic and user-friendly platform dedicated to simplifying the creation, study, and management of flashcards. Whether you're a student aiming to elevate your learning or a professional seeking enhanced knowledge retention, FlashCardPro offers a seamless solution for personalized and efficient learning.
+Study Deck is a dynamic and user-friendly platform dedicated to simplifying the creation, study, and management of flashcards. Whether you're a student aiming to elevate your learning or a professional seeking enhanced knowledge retention, Study Deck offers a seamless solution for personalized and efficient learning.
 
 ## Demo
 You can try out the live demo of the application by visiting https://study-deck.onrender.com/. Please note that this demo is a sandbox environment and may not reflect the complete features of a real-world implementation.
